@@ -1,0 +1,27 @@
+{"log":"/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration\n","stream":"stdout","time":"2022-06-06T10:16:55.924320413Z"}
+{"log":"/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/\n","stream":"stdout","time":"2022-06-06T10:16:55.924581888Z"}
+{"log":"/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh\n","stream":"stdout","time":"2022-06-06T10:16:55.942386064Z"}
+{"log":"10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf\n","stream":"stdout","time":"2022-06-06T10:16:55.966433826Z"}
+{"log":"10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf\n","stream":"stdout","time":"2022-06-06T10:16:56.020289186Z"}
+{"log":"/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh\n","stream":"stdout","time":"2022-06-06T10:16:56.020330808Z"}
+{"log":"/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh\n","stream":"stdout","time":"2022-06-06T10:16:56.037483368Z"}
+{"log":"/docker-entrypoint.sh: Configuration complete; ready for start up\n","stream":"stdout","time":"2022-06-06T10:16:56.038082278Z"}
+{"log":"2022/06/06 10:16:56 [notice] 1#1: using the \"epoll\" event method\n","stream":"stderr","time":"2022-06-06T10:16:56.058072994Z"}
+{"log":"2022/06/06 10:16:56 [notice] 1#1: nginx/1.21.6\n","stream":"stderr","time":"2022-06-06T10:16:56.058110771Z"}
+{"log":"2022/06/06 10:16:56 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) \n","stream":"stderr","time":"2022-06-06T10:16:56.058122902Z"}
+{"log":"2022/06/06 10:16:56 [notice] 1#1: OS: Linux 5.13.0-40-generic\n","stream":"stderr","time":"2022-06-06T10:16:56.058132207Z"}
+{"log":"2022/06/06 10:16:56 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576\n","stream":"stderr","time":"2022-06-06T10:16:56.05820702Z"}
+{"log":"2022/06/06 10:16:56 [notice] 1#1: start worker processes\n","stream":"stderr","time":"2022-06-06T10:16:56.058880403Z"}
+{"log":"2022/06/06 10:16:56 [notice] 1#1: start worker process 30\n","stream":"stderr","time":"2022-06-06T10:16:56.060060519Z"}
+{"log":"2022/06/06 10:16:56 [notice] 1#1: start worker process 31\n","stream":"stderr","time":"2022-06-06T10:16:56.060673192Z"}
+{"log":"2022/06/06 10:18:24 [notice] 1#1: signal 2 (SIGINT) received, exiting\n","stream":"stderr","time":"2022-06-06T10:18:24.29800282Z"}
+{"log":"2022/06/06 10:18:24 [notice] 31#31: exiting\n","stream":"stderr","time":"2022-06-06T10:18:24.298067634Z"}
+{"log":"2022/06/06 10:18:24 [notice] 31#31: exit\n","stream":"stderr","time":"2022-06-06T10:18:24.29808407Z"}
+{"log":"2022/06/06 10:18:24 [notice] 30#30: exiting\n","stream":"stderr","time":"2022-06-06T10:18:24.299924025Z"}
+{"log":"2022/06/06 10:18:24 [notice] 30#30: exit\n","stream":"stderr","time":"2022-06-06T10:18:24.299965817Z"}
+{"log":"2022/06/06 10:18:24 [notice] 1#1: signal 17 (SIGCHLD) received from 31\n","stream":"stderr","time":"2022-06-06T10:18:24.334239142Z"}
+{"log":"2022/06/06 10:18:24 [notice] 1#1: worker process 31 exited with code 0\n","stream":"stderr","time":"2022-06-06T10:18:24.334296118Z"}
+{"log":"2022/06/06 10:18:24 [notice] 1#1: signal 29 (SIGIO) received\n","stream":"stderr","time":"2022-06-06T10:18:24.334311397Z"}
+{"log":"2022/06/06 10:18:24 [notice] 1#1: signal 17 (SIGCHLD) received from 30\n","stream":"stderr","time":"2022-06-06T10:18:24.334323576Z"}
+{"log":"2022/06/06 10:18:24 [notice] 1#1: worker process 30 exited with code 0\n","stream":"stderr","time":"2022-06-06T10:18:24.334431345Z"}
+{"log":"2022/06/06 10:18:24 [notice] 1#1: exit\n","stream":"stderr","time":"2022-06-06T10:18:24.334459534Z"}

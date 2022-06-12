@@ -1,0 +1,450 @@
+{"log":"+ userns=\r\n","stream":"stdout","time":"2022-06-12T14:19:05.122332315Z"}
+{"log":"+ grep -Eqv '0[[:space:]]+0[[:space:]]+4294967295' /proc/self/uid_map\r\n","stream":"stdout","time":"2022-06-12T14:19:05.123317195Z"}
+{"log":"+ validate_userns\r\n","stream":"stdout","time":"2022-06-12T14:19:05.153060174Z"}
+{"log":"+ [[ -z '' ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:05.153580466Z"}
+{"log":"+ return\r\n","stream":"stdout","time":"2022-06-12T14:19:05.154001899Z"}
+{"log":"+ configure_containerd\r\n","stream":"stdout","time":"2022-06-12T14:19:05.1546033Z"}
+{"log":"++ stat -f -c %T /kind\r\n","stream":"stdout","time":"2022-06-12T14:19:05.156572478Z"}
+{"log":"+ [[ overlayfs == \\z\\f\\s ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:05.168961259Z"}
+{"log":"+ configure_proxy\r\n","stream":"stdout","time":"2022-06-12T14:19:05.16960064Z"}
+{"log":"+ mkdir -p /etc/systemd/system.conf.d/\r\n","stream":"stdout","time":"2022-06-12T14:19:05.170086902Z"}
+{"log":"+ [[ ! -z '' ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:05.190590649Z"}
+{"log":"+ cat\r\n","stream":"stdout","time":"2022-06-12T14:19:05.190631215Z"}
+{"log":"+ fix_kmsg\r\n","stream":"stdout","time":"2022-06-12T14:19:05.197003761Z"}
+{"log":"+ [[ ! -e /dev/kmsg ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:05.197138952Z"}
+{"log":"+ fix_mount\r\n","stream":"stdout","time":"2022-06-12T14:19:05.197150924Z"}
+{"log":"+ echo 'INFO: ensuring we can execute mount/umount even with userns-remap'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.197159534Z"}
+{"log":"INFO: ensuring we can execute mount/umount even with userns-remap\r\n","stream":"stdout","time":"2022-06-12T14:19:05.197168455Z"}
+{"log":"++ which mount\r\n","stream":"stdout","time":"2022-06-12T14:19:05.198117315Z"}
+{"log":"++ which umount\r\n","stream":"stdout","time":"2022-06-12T14:19:05.219980329Z"}
+{"log":"+ chown root:root /usr/bin/mount /usr/bin/umount\r\n","stream":"stdout","time":"2022-06-12T14:19:05.223430704Z"}
+{"log":"++ which mount\r\n","stream":"stdout","time":"2022-06-12T14:19:05.246565265Z"}
+{"log":"++ which umount\r\n","stream":"stdout","time":"2022-06-12T14:19:05.248564516Z"}
+{"log":"+ chmod -s /usr/bin/mount /usr/bin/umount\r\n","stream":"stdout","time":"2022-06-12T14:19:05.253137515Z"}
+{"log":"+++ which mount\r\n","stream":"stdout","time":"2022-06-12T14:19:05.261901694Z"}
+{"log":"++ stat -f -c %T /usr/bin/mount\r\n","stream":"stdout","time":"2022-06-12T14:19:05.265366663Z"}
+{"log":"+ [[ overlayfs == \\a\\u\\f\\s ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:05.26846248Z"}
+{"log":"+ [[ -z '' ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:05.268970484Z"}
+{"log":"+ echo 'INFO: remounting /sys read-only'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.269275828Z"}
+{"log":"INFO: remounting /sys read-only\r\n","stream":"stdout","time":"2022-06-12T14:19:05.269629727Z"}
+{"log":"+ mount -o remount,ro /sys\r\n","stream":"stdout","time":"2022-06-12T14:19:05.26996673Z"}
+{"log":"+ echo 'INFO: making mounts shared'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.287055474Z"}
+{"log":"INFO: making mounts shared\r\n","stream":"stdout","time":"2022-06-12T14:19:05.287526703Z"}
+{"log":"+ mount --make-rshared /\r\n","stream":"stdout","time":"2022-06-12T14:19:05.287838955Z"}
+{"log":"+ retryable_fix_cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.29576422Z"}
+{"log":"++ seq 0 10\r\n","stream":"stdout","time":"2022-06-12T14:19:05.298072393Z"}
+{"log":"+ for i in $(seq 0 10)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.308541479Z"}
+{"log":"+ fix_cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.309084736Z"}
+{"log":"+ [[ -f /sys/fs/cgroup/cgroup.controllers ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:05.30910802Z"}
+{"log":"+ echo 'INFO: detected cgroup v1'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.309117978Z"}
+{"log":"INFO: detected cgroup v1\r\n","stream":"stdout","time":"2022-06-12T14:19:05.309126496Z"}
+{"log":"+ echo 'INFO: fix cgroup mounts for all subsystems'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.309134681Z"}
+{"log":"INFO: fix cgroup mounts for all subsystems\r\n","stream":"stdout","time":"2022-06-12T14:19:05.309142901Z"}
+{"log":"+ local current_cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.309180418Z"}
+{"log":"++ grep -E '^[^:]*:([^:]*,)?cpu(,[^,:]*)?:.*' /proc/self/cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.312329956Z"}
+{"log":"++ cut -d: -f3\r\n","stream":"stdout","time":"2022-06-12T14:19:05.312720035Z"}
+{"log":"+ current_cgroup=/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.31870126Z"}
+{"log":"+ local cgroup_subsystems\r\n","stream":"stdout","time":"2022-06-12T14:19:05.319053775Z"}
+{"log":"++ findmnt -lun -o source,target -t cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.328587241Z"}
+{"log":"++ awk '{print $2}'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.330466994Z"}
+{"log":"++ grep /docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.331582361Z"}
+{"log":"+ cgroup_subsystems='/sys/fs/cgroup/systemd\r\n","stream":"stdout","time":"2022-06-12T14:19:05.35795593Z"}
+{"log":"/sys/fs/cgroup/perf_event\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358066098Z"}
+{"log":"/sys/fs/cgroup/rdma\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358077373Z"}
+{"log":"/sys/fs/cgroup/cpuset\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358085735Z"}
+{"log":"/sys/fs/cgroup/net_cls,net_prio\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358093943Z"}
+{"log":"/sys/fs/cgroup/pids\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358102179Z"}
+{"log":"/sys/fs/cgroup/devices\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358115515Z"}
+{"log":"/sys/fs/cgroup/hugetlb\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358123805Z"}
+{"log":"/sys/fs/cgroup/memory\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358131749Z"}
+{"log":"/sys/fs/cgroup/freezer\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358139742Z"}
+{"log":"/sys/fs/cgroup/cpu,cpuacct\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358147732Z"}
+{"log":"/sys/fs/cgroup/blkio'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358155853Z"}
+{"log":"+ local cgroup_mounts\r\n","stream":"stdout","time":"2022-06-12T14:19:05.358169875Z"}
+{"log":"++ grep -E -o '/[[:alnum:]].* /sys/fs/cgroup.*.*cgroup' /proc/self/mountinfo\r\n","stream":"stdout","time":"2022-06-12T14:19:05.359469932Z"}
+{"log":"+ cgroup_mounts='/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/systemd rw,nosuid,nodev,noexec,relatime shared:538 master:11 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.365883567Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/perf_event rw,nosuid,nodev,noexec,relatime shared:539 master:15 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.365954345Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/rdma rw,nosuid,nodev,noexec,relatime shared:540 master:16 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.365970592Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/cpuset rw,nosuid,nodev,noexec,relatime shared:541 master:17 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.365983754Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/net_cls,net_prio rw,nosuid,nodev,noexec,relatime shared:542 master:18 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.365996794Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/pids rw,nosuid,nodev,noexec,relatime shared:544 master:20 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.366009873Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/devices rw,nosuid,nodev,noexec,relatime shared:545 master:21 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.366022787Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/hugetlb rw,nosuid,nodev,noexec,relatime shared:546 master:22 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.366063067Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/memory rw,nosuid,nodev,noexec,relatime shared:547 master:23 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.366521834Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/freezer rw,nosuid,nodev,noexec,relatime shared:548 master:24 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.3665628Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/cpu,cpuacct rw,nosuid,nodev,noexec,relatime shared:549 master:25 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.366579222Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/blkio rw,nosuid,nodev,noexec,relatime shared:550 master:26 - cgroup cgroup'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.366593084Z"}
+{"log":"+ [[ -n /docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/systemd rw,nosuid,nodev,noexec,relatime shared:538 master:11 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.367450895Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/perf_event rw,nosuid,nodev,noexec,relatime shared:539 master:15 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.367481028Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/rdma rw,nosuid,nodev,noexec,relatime shared:540 master:16 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.367495007Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/cpuset rw,nosuid,nodev,noexec,relatime shared:541 master:17 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.367507976Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/net_cls,net_prio rw,nosuid,nodev,noexec,relatime shared:542 master:18 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.367520782Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/pids rw,nosuid,nodev,noexec,relatime shared:544 master:20 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.367533726Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/devices rw,nosuid,nodev,noexec,relatime shared:545 master:21 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.367546581Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/hugetlb rw,nosuid,nodev,noexec,relatime shared:546 master:22 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.367559356Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/memory rw,nosuid,nodev,noexec,relatime shared:547 master:23 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.36757228Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/freezer rw,nosuid,nodev,noexec,relatime shared:548 master:24 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.367885585Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/cpu,cpuacct rw,nosuid,nodev,noexec,relatime shared:549 master:25 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.368024935Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/blkio rw,nosuid,nodev,noexec,relatime shared:550 master:26 - cgroup cgroup ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:05.368057161Z"}
+{"log":"+ local mount_root\r\n","stream":"stdout","time":"2022-06-12T14:19:05.368071056Z"}
+{"log":"++ cut '-d ' -f1\r\n","stream":"stdout","time":"2022-06-12T14:19:05.373167372Z"}
+{"log":"++ head -n 1\r\n","stream":"stdout","time":"2022-06-12T14:19:05.375086686Z"}
+{"log":"+ mount_root=/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.384677292Z"}
+{"log":"++ echo '/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/systemd rw,nosuid,nodev,noexec,relatime shared:538 master:11 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390188621Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/perf_event rw,nosuid,nodev,noexec,relatime shared:539 master:15 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390243308Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/rdma rw,nosuid,nodev,noexec,relatime shared:540 master:16 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390258857Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/cpuset rw,nosuid,nodev,noexec,relatime shared:541 master:17 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390271996Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/net_cls,net_prio rw,nosuid,nodev,noexec,relatime shared:542 master:18 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390285242Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/pids rw,nosuid,nodev,noexec,relatime shared:544 master:20 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390298385Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/devices rw,nosuid,nodev,noexec,relatime shared:545 master:21 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.39031142Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/hugetlb rw,nosuid,nodev,noexec,relatime shared:546 master:22 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390324757Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/memory rw,nosuid,nodev,noexec,relatime shared:547 master:23 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390337582Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/freezer rw,nosuid,nodev,noexec,relatime shared:548 master:24 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390350482Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/cpu,cpuacct rw,nosuid,nodev,noexec,relatime shared:549 master:25 - cgroup cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.39036331Z"}
+{"log":"/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44 /sys/fs/cgroup/blkio rw,nosuid,nodev,noexec,relatime shared:550 master:26 - cgroup cgroup'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390376406Z"}
+{"log":"++ cut '-d ' -f 2\r\n","stream":"stdout","time":"2022-06-12T14:19:05.390691355Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.399767419Z"}
+{"log":"+ local target=/sys/fs/cgroup/systemd/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.399973052Z"}
+{"log":"+ findmnt /sys/fs/cgroup/systemd/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.402902016Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/systemd/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.417338049Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/systemd /sys/fs/cgroup/systemd/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.423454008Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.431446545Z"}
+{"log":"+ local target=/sys/fs/cgroup/perf_event/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.432330024Z"}
+{"log":"+ findmnt /sys/fs/cgroup/perf_event/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.433281662Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/perf_event/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.443887478Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/perf_event /sys/fs/cgroup/perf_event/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.449360721Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.457114535Z"}
+{"log":"+ local target=/sys/fs/cgroup/rdma/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.457165857Z"}
+{"log":"+ findmnt /sys/fs/cgroup/rdma/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.457835799Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/rdma/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.467337974Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/rdma /sys/fs/cgroup/rdma/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.47329843Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.482071742Z"}
+{"log":"+ local target=/sys/fs/cgroup/cpuset/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.482785986Z"}
+{"log":"+ findmnt /sys/fs/cgroup/cpuset/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.483366404Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/cpuset/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.496696539Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/cpuset /sys/fs/cgroup/cpuset/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.514488592Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.520816096Z"}
+{"log":"+ local target=/sys/fs/cgroup/net_cls,net_prio/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.521557004Z"}
+{"log":"+ findmnt /sys/fs/cgroup/net_cls,net_prio/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.522214593Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/net_cls,net_prio/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.532490017Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/net_cls,net_prio /sys/fs/cgroup/net_cls,net_prio/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.538663695Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.548567931Z"}
+{"log":"+ local target=/sys/fs/cgroup/pids/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.549293537Z"}
+{"log":"+ findmnt /sys/fs/cgroup/pids/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.549902497Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/pids/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.566006506Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/pids /sys/fs/cgroup/pids/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.571164304Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.580541828Z"}
+{"log":"+ local target=/sys/fs/cgroup/devices/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.581298992Z"}
+{"log":"+ findmnt /sys/fs/cgroup/devices/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.583880681Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/devices/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.594504613Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/devices /sys/fs/cgroup/devices/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.603371909Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.61615588Z"}
+{"log":"+ local target=/sys/fs/cgroup/hugetlb/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.61680961Z"}
+{"log":"+ findmnt /sys/fs/cgroup/hugetlb/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.617647248Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/hugetlb/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.64362393Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/hugetlb /sys/fs/cgroup/hugetlb/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.658031645Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.665132875Z"}
+{"log":"+ local target=/sys/fs/cgroup/memory/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.665182967Z"}
+{"log":"+ findmnt /sys/fs/cgroup/memory/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.665973628Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/memory/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.680418618Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/memory /sys/fs/cgroup/memory/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.68668085Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.693999046Z"}
+{"log":"+ local target=/sys/fs/cgroup/freezer/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.694048776Z"}
+{"log":"+ findmnt /sys/fs/cgroup/freezer/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.694064033Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/freezer/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.705872515Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/freezer /sys/fs/cgroup/freezer/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.730693301Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.73850226Z"}
+{"log":"+ local target=/sys/fs/cgroup/cpu,cpuacct/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.738603049Z"}
+{"log":"+ findmnt /sys/fs/cgroup/cpu,cpuacct/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.738824493Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/cpu,cpuacct/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.760600497Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/cpu,cpuacct /sys/fs/cgroup/cpu,cpuacct/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.772358162Z"}
+{"log":"+ for mount_point in $(echo \"${cgroup_mounts}\" | cut -d' ' -f 2)\r\n","stream":"stdout","time":"2022-06-12T14:19:05.779292249Z"}
+{"log":"+ local target=/sys/fs/cgroup/blkio/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.780534171Z"}
+{"log":"+ findmnt /sys/fs/cgroup/blkio/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.781181089Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/blkio/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.792216533Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/blkio /sys/fs/cgroup/blkio/docker/9436ec88ca842232c6cbcae5758d8fbba89aa84b31f7669093757c902dc30b44\r\n","stream":"stdout","time":"2022-06-12T14:19:05.802812166Z"}
+{"log":"+ mount --make-rprivate /sys/fs/cgroup\r\n","stream":"stdout","time":"2022-06-12T14:19:05.813071002Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:05.831595276Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:05.831734063Z"}
+{"log":"+ echo '/sys/fs/cgroup/systemd\r\n","stream":"stdout","time":"2022-06-12T14:19:05.832771406Z"}
+{"log":"/sys/fs/cgroup/perf_event\r\n","stream":"stdout","time":"2022-06-12T14:19:05.832947457Z"}
+{"log":"/sys/fs/cgroup/rdma\r\n","stream":"stdout","time":"2022-06-12T14:19:05.832965792Z"}
+{"log":"/sys/fs/cgroup/cpuset\r\n","stream":"stdout","time":"2022-06-12T14:19:05.832978276Z"}
+{"log":"/sys/fs/cgroup/net_cls,net_prio\r\n","stream":"stdout","time":"2022-06-12T14:19:05.832990617Z"}
+{"log":"/sys/fs/cgroup/pids\r\n","stream":"stdout","time":"2022-06-12T14:19:05.833002868Z"}
+{"log":"/sys/fs/cgroup/devices\r\n","stream":"stdout","time":"2022-06-12T14:19:05.833014915Z"}
+{"log":"/sys/fs/cgroup/hugetlb\r\n","stream":"stdout","time":"2022-06-12T14:19:05.833026832Z"}
+{"log":"/sys/fs/cgroup/memory\r\n","stream":"stdout","time":"2022-06-12T14:19:05.8330387Z"}
+{"log":"/sys/fs/cgroup/freezer\r\n","stream":"stdout","time":"2022-06-12T14:19:05.83305093Z"}
+{"log":"/sys/fs/cgroup/cpu,cpuacct\r\n","stream":"stdout","time":"2022-06-12T14:19:05.833063007Z"}
+{"log":"/sys/fs/cgroup/blkio'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.833075206Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/systemd\r\n","stream":"stdout","time":"2022-06-12T14:19:05.833973732Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.834611446Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/systemd\r\n","stream":"stdout","time":"2022-06-12T14:19:05.835568852Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.836883665Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/systemd//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.83862884Z"}
+{"log":"+ '[' /sys/fs/cgroup/systemd == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.845232739Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/systemd//kubelet /sys/fs/cgroup/systemd//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.845277219Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:05.858494917Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:05.858548919Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/perf_event\r\n","stream":"stdout","time":"2022-06-12T14:19:05.858564167Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.858602626Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/perf_event\r\n","stream":"stdout","time":"2022-06-12T14:19:05.858616053Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.858629417Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/perf_event//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.858710702Z"}
+{"log":"+ '[' /sys/fs/cgroup/perf_event == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.875706411Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/perf_event//kubelet /sys/fs/cgroup/perf_event//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.875756953Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:05.888614029Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:05.888667831Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/rdma\r\n","stream":"stdout","time":"2022-06-12T14:19:05.888683306Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.888696578Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/rdma\r\n","stream":"stdout","time":"2022-06-12T14:19:05.88870938Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.888722801Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/rdma//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.888735437Z"}
+{"log":"+ '[' /sys/fs/cgroup/rdma == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.902692617Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/rdma//kubelet /sys/fs/cgroup/rdma//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.90294562Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:05.902966817Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:05.902980266Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/cpuset\r\n","stream":"stdout","time":"2022-06-12T14:19:05.903024034Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.903929422Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/cpuset\r\n","stream":"stdout","time":"2022-06-12T14:19:05.903967705Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.910308338Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/cpuset//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.910944293Z"}
+{"log":"+ '[' /sys/fs/cgroup/cpuset == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.954811393Z"}
+{"log":"+ cat /sys/fs/cgroup/cpuset/cpuset.cpus\r\n","stream":"stdout","time":"2022-06-12T14:19:05.954869579Z"}
+{"log":"+ cat /sys/fs/cgroup/cpuset/cpuset.mems\r\n","stream":"stdout","time":"2022-06-12T14:19:05.954885501Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/cpuset//kubelet /sys/fs/cgroup/cpuset//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.954898514Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:05.954911668Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:05.954924247Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/net_cls,net_prio\r\n","stream":"stdout","time":"2022-06-12T14:19:05.954937064Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.954949928Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/net_cls,net_prio\r\n","stream":"stdout","time":"2022-06-12T14:19:05.954962654Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.955007455Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/net_cls,net_prio//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.955020614Z"}
+{"log":"+ '[' /sys/fs/cgroup/net_cls,net_prio == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:05.976004963Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/net_cls,net_prio//kubelet /sys/fs/cgroup/net_cls,net_prio//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:05.976184433Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002627162Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002701205Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/pids\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002727459Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.0027491Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/pids\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002769627Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002788225Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/pids//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002805088Z"}
+{"log":"+ '[' /sys/fs/cgroup/pids == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002823184Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/pids//kubelet /sys/fs/cgroup/pids//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002842708Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002862542Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002880959Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/devices\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002899729Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002918402Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/devices\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002936902Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002954919Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/devices//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.002972913Z"}
+{"log":"+ '[' /sys/fs/cgroup/devices == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.016615677Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/devices//kubelet /sys/fs/cgroup/devices//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.016893Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.025754956Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:06.025804111Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/hugetlb\r\n","stream":"stdout","time":"2022-06-12T14:19:06.025818653Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.025831279Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/hugetlb\r\n","stream":"stdout","time":"2022-06-12T14:19:06.025843583Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.025855828Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/hugetlb//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.02586794Z"}
+{"log":"+ '[' /sys/fs/cgroup/hugetlb == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.028651282Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/hugetlb//kubelet /sys/fs/cgroup/hugetlb//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.028686682Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.034619632Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:06.034659865Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/memory\r\n","stream":"stdout","time":"2022-06-12T14:19:06.034781735Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.03480044Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/memory\r\n","stream":"stdout","time":"2022-06-12T14:19:06.035173472Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.035198971Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/memory//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.03521201Z"}
+{"log":"+ '[' /sys/fs/cgroup/memory == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.040747659Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/memory//kubelet /sys/fs/cgroup/memory//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.040790722Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.074799544Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:06.074884966Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/freezer\r\n","stream":"stdout","time":"2022-06-12T14:19:06.074901539Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.074914529Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/freezer\r\n","stream":"stdout","time":"2022-06-12T14:19:06.074926868Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.074939049Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/freezer//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.074951066Z"}
+{"log":"+ '[' /sys/fs/cgroup/freezer == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.074963142Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/freezer//kubelet /sys/fs/cgroup/freezer//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.074975458Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.097686514Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:06.097758391Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/cpu,cpuacct\r\n","stream":"stdout","time":"2022-06-12T14:19:06.097773984Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.097787062Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/cpu,cpuacct\r\n","stream":"stdout","time":"2022-06-12T14:19:06.097803375Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.097986843Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/cpu,cpuacct//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.098001709Z"}
+{"log":"+ '[' /sys/fs/cgroup/cpu,cpuacct == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.098014259Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/cpu,cpuacct//kubelet /sys/fs/cgroup/cpu,cpuacct//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.107148013Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.120877658Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:06.120934591Z"}
+{"log":"+ mount_kubelet_cgroup_root /kubelet /sys/fs/cgroup/blkio\r\n","stream":"stdout","time":"2022-06-12T14:19:06.120950166Z"}
+{"log":"+ local cgroup_root=/kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.120962979Z"}
+{"log":"+ local subsystem=/sys/fs/cgroup/blkio\r\n","stream":"stdout","time":"2022-06-12T14:19:06.120975213Z"}
+{"log":"+ '[' -z /kubelet ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.120987406Z"}
+{"log":"+ mkdir -p /sys/fs/cgroup/blkio//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.120999448Z"}
+{"log":"+ '[' /sys/fs/cgroup/blkio == /sys/fs/cgroup/cpuset ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.12855145Z"}
+{"log":"+ mount --bind /sys/fs/cgroup/blkio//kubelet /sys/fs/cgroup/blkio//kubelet\r\n","stream":"stdout","time":"2022-06-12T14:19:06.128598562Z"}
+{"log":"+ IFS=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.15715502Z"}
+{"log":"+ read -r subsystem\r\n","stream":"stdout","time":"2022-06-12T14:19:06.157208295Z"}
+{"log":"+ return\r\n","stream":"stdout","time":"2022-06-12T14:19:06.157224156Z"}
+{"log":"+ fix_machine_id\r\n","stream":"stdout","time":"2022-06-12T14:19:06.157236609Z"}
+{"log":"+ echo 'INFO: clearing and regenerating /etc/machine-id'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.157249171Z"}
+{"log":"INFO: clearing and regenerating /etc/machine-id\r\n","stream":"stdout","time":"2022-06-12T14:19:06.157261823Z"}
+{"log":"+ rm -f /etc/machine-id\r\n","stream":"stdout","time":"2022-06-12T14:19:06.15727428Z"}
+{"log":"+ systemd-machine-id-setup\r\n","stream":"stdout","time":"2022-06-12T14:19:06.157286402Z"}
+{"log":"Initializing machine ID from D-Bus machine ID.\r\n","stream":"stdout","time":"2022-06-12T14:19:06.294728262Z"}
+{"log":"+ fix_product_name\r\n","stream":"stdout","time":"2022-06-12T14:19:06.31646077Z"}
+{"log":"+ [[ -f /sys/class/dmi/id/product_name ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:06.31650671Z"}
+{"log":"+ echo 'INFO: faking /sys/class/dmi/id/product_name to be \"kind\"'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.316519929Z"}
+{"log":"INFO: faking /sys/class/dmi/id/product_name to be \"kind\"\r\n","stream":"stdout","time":"2022-06-12T14:19:06.31655269Z"}
+{"log":"+ echo kind\r\n","stream":"stdout","time":"2022-06-12T14:19:06.316564062Z"}
+{"log":"+ mount -o ro,bind /kind/product_name /sys/class/dmi/id/product_name\r\n","stream":"stdout","time":"2022-06-12T14:19:06.316573939Z"}
+{"log":"+ fix_product_uuid\r\n","stream":"stdout","time":"2022-06-12T14:19:06.324470882Z"}
+{"log":"+ [[ ! -f /kind/product_uuid ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:06.325177093Z"}
+{"log":"+ cat /proc/sys/kernel/random/uuid\r\n","stream":"stdout","time":"2022-06-12T14:19:06.325495977Z"}
+{"log":"+ [[ -f /sys/class/dmi/id/product_uuid ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:06.3302687Z"}
+{"log":"+ echo 'INFO: faking /sys/class/dmi/id/product_uuid to be random'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.330306794Z"}
+{"log":"INFO: faking /sys/class/dmi/id/product_uuid to be random\r\n","stream":"stdout","time":"2022-06-12T14:19:06.330319188Z"}
+{"log":"+ mount -o ro,bind /kind/product_uuid /sys/class/dmi/id/product_uuid\r\n","stream":"stdout","time":"2022-06-12T14:19:06.330329585Z"}
+{"log":"+ [[ -f /sys/devices/virtual/dmi/id/product_uuid ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:06.344883917Z"}
+{"log":"+ echo 'INFO: faking /sys/devices/virtual/dmi/id/product_uuid as well'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.344929005Z"}
+{"log":"INFO: faking /sys/devices/virtual/dmi/id/product_uuid as well\r\n","stream":"stdout","time":"2022-06-12T14:19:06.345193023Z"}
+{"log":"+ mount -o ro,bind /kind/product_uuid /sys/devices/virtual/dmi/id/product_uuid\r\n","stream":"stdout","time":"2022-06-12T14:19:06.345872787Z"}
+{"log":"+ select_iptables\r\n","stream":"stdout","time":"2022-06-12T14:19:06.352042305Z"}
+{"log":"+ local mode=nft\r\n","stream":"stdout","time":"2022-06-12T14:19:06.352081162Z"}
+{"log":"++ wc -l\r\n","stream":"stdout","time":"2022-06-12T14:19:06.35493682Z"}
+{"log":"++ grep '^-'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.359128533Z"}
+{"log":"+ num_legacy_lines=6\r\n","stream":"stdout","time":"2022-06-12T14:19:06.397152174Z"}
+{"log":"+ '[' 6 -ge 10 ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.397378539Z"}
+{"log":"++ grep '^-'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.402251585Z"}
+{"log":"++ wc -l\r\n","stream":"stdout","time":"2022-06-12T14:19:06.412744572Z"}
+{"log":"++ true\r\n","stream":"stdout","time":"2022-06-12T14:19:06.50741597Z"}
+{"log":"+ num_nft_lines=0\r\n","stream":"stdout","time":"2022-06-12T14:19:06.509223775Z"}
+{"log":"+ '[' 6 -ge 0 ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.509872572Z"}
+{"log":"+ mode=legacy\r\n","stream":"stdout","time":"2022-06-12T14:19:06.510344228Z"}
+{"log":"+ echo 'INFO: setting iptables to detected mode: legacy'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.510370314Z"}
+{"log":"INFO: setting iptables to detected mode: legacy\r\n","stream":"stdout","time":"2022-06-12T14:19:06.510833216Z"}
+{"log":"+ update-alternatives --set iptables /usr/sbin/iptables-legacy\r\n","stream":"stdout","time":"2022-06-12T14:19:06.511386841Z"}
+{"log":"+ echo 'retryable update-alternatives: --set iptables /usr/sbin/iptables-legacy'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.51301421Z"}
+{"log":"+ local 'args=--set iptables /usr/sbin/iptables-legacy'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.513177061Z"}
+{"log":"++ seq 0 15\r\n","stream":"stdout","time":"2022-06-12T14:19:06.514722275Z"}
+{"log":"+ for i in $(seq 0 15)\r\n","stream":"stdout","time":"2022-06-12T14:19:06.518655364Z"}
+{"log":"+ /usr/bin/update-alternatives --set iptables /usr/sbin/iptables-legacy\r\n","stream":"stdout","time":"2022-06-12T14:19:06.518805464Z"}
+{"log":"+ return\r\n","stream":"stdout","time":"2022-06-12T14:19:06.532507129Z"}
+{"log":"+ update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy\r\n","stream":"stdout","time":"2022-06-12T14:19:06.533728294Z"}
+{"log":"+ echo 'retryable update-alternatives: --set ip6tables /usr/sbin/ip6tables-legacy'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.534124271Z"}
+{"log":"+ local 'args=--set ip6tables /usr/sbin/ip6tables-legacy'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.535049404Z"}
+{"log":"++ seq 0 15\r\n","stream":"stdout","time":"2022-06-12T14:19:06.538439647Z"}
+{"log":"+ for i in $(seq 0 15)\r\n","stream":"stdout","time":"2022-06-12T14:19:06.539569678Z"}
+{"log":"+ /usr/bin/update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy\r\n","stream":"stdout","time":"2022-06-12T14:19:06.54026521Z"}
+{"log":"+ return\r\n","stream":"stdout","time":"2022-06-12T14:19:06.551050223Z"}
+{"log":"+ enable_network_magic\r\n","stream":"stdout","time":"2022-06-12T14:19:06.551090508Z"}
+{"log":"+ local docker_embedded_dns_ip=127.0.0.11\r\n","stream":"stdout","time":"2022-06-12T14:19:06.551102326Z"}
+{"log":"+ local docker_host_ip\r\n","stream":"stdout","time":"2022-06-12T14:19:06.551112528Z"}
+{"log":"++ head -n1 /dev/fd/63\r\n","stream":"stdout","time":"2022-06-12T14:19:06.554869689Z"}
+{"log":"+++ getent ahostsv4 host.docker.internal\r\n","stream":"stdout","time":"2022-06-12T14:19:06.555391546Z"}
+{"log":"++ cut '-d ' -f1\r\n","stream":"stdout","time":"2022-06-12T14:19:06.557342579Z"}
+{"log":"+ docker_host_ip=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.694810622Z"}
+{"log":"+ [[ -z '' ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:06.695015569Z"}
+{"log":"++ ip -4 route show default\r\n","stream":"stdout","time":"2022-06-12T14:19:06.695039234Z"}
+{"log":"++ cut '-d ' -f3\r\n","stream":"stdout","time":"2022-06-12T14:19:06.695052448Z"}
+{"log":"+ docker_host_ip=192.168.49.1\r\n","stream":"stdout","time":"2022-06-12T14:19:06.737257699Z"}
+{"log":"+ iptables-save\r\n","stream":"stdout","time":"2022-06-12T14:19:06.740257169Z"}
+{"log":"+ iptables-restore\r\n","stream":"stdout","time":"2022-06-12T14:19:06.746709074Z"}
+{"log":"+ sed -e 's/-d 127.0.0.11/-d 192.168.49.1/g' -e 's/-A OUTPUT \\(.*\\) -j DOCKER_OUTPUT/\\0\\n-A PREROUTING \\1 -j DOCKER_OUTPUT/' -e 's/--to-source :53/--to-source 192.168.49.1:53/g'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.761046055Z"}
+{"log":"+ cp /etc/resolv.conf /etc/resolv.conf.original\r\n","stream":"stdout","time":"2022-06-12T14:19:06.785124256Z"}
+{"log":"+ sed -e s/127.0.0.11/192.168.49.1/g /etc/resolv.conf.original\r\n","stream":"stdout","time":"2022-06-12T14:19:06.808702874Z"}
+{"log":"++ head -n1 /dev/fd/63\r\n","stream":"stdout","time":"2022-06-12T14:19:06.832168616Z"}
+{"log":"++ cut '-d ' -f1\r\n","stream":"stdout","time":"2022-06-12T14:19:06.833567779Z"}
+{"log":"++++ hostname\r\n","stream":"stdout","time":"2022-06-12T14:19:06.834218553Z"}
+{"log":"+++ getent ahostsv4 minikube\r\n","stream":"stdout","time":"2022-06-12T14:19:06.848527557Z"}
+{"log":"+ curr_ipv4=192.168.49.2\r\n","stream":"stdout","time":"2022-06-12T14:19:06.859268115Z"}
+{"log":"+ echo 'INFO: Detected IPv4 address: 192.168.49.2'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.859321211Z"}
+{"log":"INFO: Detected IPv4 address: 192.168.49.2\r\n","stream":"stdout","time":"2022-06-12T14:19:06.859336908Z"}
+{"log":"+ '[' -f /kind/old-ipv4 ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.859349666Z"}
+{"log":"+ [[ -n 192.168.49.2 ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:06.860850216Z"}
+{"log":"+ echo -n 192.168.49.2\r\n","stream":"stdout","time":"2022-06-12T14:19:06.860883996Z"}
+{"log":"++ cut '-d ' -f1\r\n","stream":"stdout","time":"2022-06-12T14:19:06.866337187Z"}
+{"log":"++ head -n1 /dev/fd/63\r\n","stream":"stdout","time":"2022-06-12T14:19:06.868749001Z"}
+{"log":"++++ hostname\r\n","stream":"stdout","time":"2022-06-12T14:19:06.880076319Z"}
+{"log":"+++ getent ahostsv6 minikube\r\n","stream":"stdout","time":"2022-06-12T14:19:06.883448711Z"}
+{"log":"+ curr_ipv6=\r\n","stream":"stdout","time":"2022-06-12T14:19:06.898038675Z"}
+{"log":"+ echo 'INFO: Detected IPv6 address: '\r\n","stream":"stdout","time":"2022-06-12T14:19:06.898410802Z"}
+{"log":"INFO: Detected IPv6 address: \r\n","stream":"stdout","time":"2022-06-12T14:19:06.898439865Z"}
+{"log":"+ '[' -f /kind/old-ipv6 ']'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.899328976Z"}
+{"log":"+ [[ -n '' ]]\r\n","stream":"stdout","time":"2022-06-12T14:19:06.900157124Z"}
+{"log":"++ uname -a\r\n","stream":"stdout","time":"2022-06-12T14:19:06.902668994Z"}
+{"log":"+ echo 'entrypoint completed: Linux minikube 5.13.0-44-generic #49~20.04.1-Ubuntu SMP Wed May 18 18:44:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux'\r\n","stream":"stdout","time":"2022-06-12T14:19:06.914671514Z"}
+{"log":"entrypoint completed: Linux minikube 5.13.0-44-generic #49~20.04.1-Ubuntu SMP Wed May 18 18:44:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux\r\n","stream":"stdout","time":"2022-06-12T14:19:06.914726317Z"}
+{"log":"+ exec /sbin/init\r\n","stream":"stdout","time":"2022-06-12T14:19:06.91516427Z"}
+{"log":"systemd 245.4-4ubuntu3.15 running in system mode. (+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ +LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD +IDN2 -IDN +PCRE2 default-hierarchy=hybrid)\r\n","stream":"stdout","time":"2022-06-12T14:19:06.982905207Z"}
+{"log":"Detected virtualization docker.\r\n","stream":"stdout","time":"2022-06-12T14:19:06.982963066Z"}
+{"log":"Detected architecture x86-64.\r\n","stream":"stdout","time":"2022-06-12T14:19:06.982978593Z"}
+{"log":"\r\n","stream":"stdout","time":"2022-06-12T14:19:06.993092003Z"}
+{"log":"Welcome to \u001b[1mUbuntu 20.04.2 LTS\u001b[0m!\r\n","stream":"stdout","time":"2022-06-12T14:19:06.993140233Z"}
+{"log":"\r\n","stream":"stdout","time":"2022-06-12T14:19:06.993157676Z"}
+{"log":"Set hostname to \u003cminikube\u003e.\r\n","stream":"stdout","time":"2022-06-12T14:19:06.993170468Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Started \u001b[0;1;39mDispatch Password …ts to Console Directory Watch\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.64457858Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Set up automount \u001b[0;1;39mArbitrary…s File System Automount Point\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.645796283Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mLocal Encrypted Volumes\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.646434101Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mNetwork is Online\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.646550871Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mPaths\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.647351432Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mSlices\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.647460785Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mSwap\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.648179978Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Listening on \u001b[0;1;39mJournal Audit Socket\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.649777299Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Listening on \u001b[0;1;39mJournal Socket (/dev/log)\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.650805631Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Listening on \u001b[0;1;39mJournal Socket\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.652148643Z"}
+{"log":"         Mounting \u001b[0;1;39mHuge Pages File System\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.66031397Z"}
+{"log":"         Mounting \u001b[0;1;39mKernel Debug File System\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.6697491Z"}
+{"log":"         Mounting \u001b[0;1;39mKernel Trace File System\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.682722336Z"}
+{"log":"         Starting \u001b[0;1;39mJournal Service\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.723044482Z"}
+{"log":"         Starting \u001b[0;1;39mCreate list of st…odes for the current kernel\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.733751111Z"}
+{"log":"         Mounting \u001b[0;1;39mFUSE Control File System\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.769092193Z"}
+{"log":"         Starting \u001b[0;1;39mRemount Root and Kernel File Systems\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.777834629Z"}
+{"log":"         Starting \u001b[0;1;39mApply Kernel Variables\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.791349379Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Mounted \u001b[0;1;39mHuge Pages File System\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.805224766Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Mounted \u001b[0;1;39mKernel Debug File System\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.806436415Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Mounted \u001b[0;1;39mKernel Trace File System\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.84175935Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Finished \u001b[0;1;39mCreate list of st… nodes for the current kernel\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.853626581Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Mounted \u001b[0;1;39mFUSE Control File System\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.855040077Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Finished \u001b[0;1;39mRemount Root and Kernel File Systems\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.878740852Z"}
+{"log":"         Starting \u001b[0;1;39mCreate System Users\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.897670778Z"}
+{"log":"         Starting \u001b[0;1;39mUpdate UTMP about System Boot/Shutdown\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:07.909170945Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Finished \u001b[0;1;39mApply Kernel Variables\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.926730027Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Finished \u001b[0;1;39mUpdate UTMP about System Boot/Shutdown\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:07.992413828Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Finished \u001b[0;1;39mCreate System Users\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.052815748Z"}
+{"log":"         Starting \u001b[0;1;39mCreate Static Device Nodes in /dev\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:08.06174784Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Started \u001b[0;1;39mJournal Service\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.096840224Z"}
+{"log":"         Starting \u001b[0;1;39mFlush Journal to Persistent Storage\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:08.105692965Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Finished \u001b[0;1;39mCreate Static Device Nodes in /dev\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.153277875Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mLocal File Systems (Pre)\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.154175338Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mLocal File Systems\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.155457185Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mSystem Initialization\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.158311494Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Started \u001b[0;1;39mDaily Cleanup of Temporary Directories\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.15937371Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mTimers\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.160345411Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Listening on \u001b[0;1;39mBuildKit\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.161162811Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Listening on \u001b[0;1;39mD-Bus System Message Bus Socket\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.162073208Z"}
+{"log":"         Starting \u001b[0;1;39mDocker Socket for the API\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.173687335Z"}
+{"log":"         Starting \u001b[0;1;39mPodman API Socket\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.179832086Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Finished \u001b[0;1;39mFlush Journal to Persistent Storage\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.184883Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Listening on \u001b[0;1;39mPodman API Socket\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.195043921Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Listening on \u001b[0;1;39mDocker Socket for the API\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.198149748Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mSockets\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.19934135Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mBasic System\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.200200532Z"}
+{"log":"         Starting \u001b[0;1;39mcontainerd container runtime\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:08.21310128Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Started \u001b[0;1;39mD-Bus System Message Bus\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.228654631Z"}
+{"log":"         Starting \u001b[0;1;39mminikube automount\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:08.264446114Z"}
+{"log":"         Starting \u001b[0;1;39mOpenBSD Secure Shell server\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:08.283567328Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Started \u001b[0;1;39mOpenBSD Secure Shell server\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.629650809Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Finished \u001b[0;1;39mminikube automount\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:08.671558312Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Started \u001b[0;1;39mcontainerd container runtime\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:09.528490106Z"}
+{"log":"         Starting \u001b[0;1;39mDocker Application Container Engine\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:09.539465551Z"}
+{"log":"[\u001b[0m\u001b[0;31m*     \u001b[0m] A start job is running for Docker A…n Container Engine (4s / no limit)\r\n","stream":"stdout","time":"2022-06-12T14:19:11.716050992Z"}
+{"log":"\u001bM\r\u001b[K[\u001b[0;1;31m*\u001b[0m\u001b[0;31m*    \u001b[0m] A start job is running for Docker A…n Container Engine (4s / no limit)\r\n","stream":"stdout","time":"2022-06-12T14:19:12.217724303Z"}
+{"log":"\u001bM\r\u001b[K[\u001b[0;32m  OK  \u001b[0m] Started \u001b[0;1;39mDocker Application Container Engine\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:12.500395352Z"}
+{"log":"\u001b[K[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mMulti-User System\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:12.500452299Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Reached target \u001b[0;1;39mGraphical Interface\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:12.500467097Z"}
+{"log":"         Starting \u001b[0;1;39mUpdate UTMP about System Runlevel Changes\u001b[0m...\r\n","stream":"stdout","time":"2022-06-12T14:19:12.506542227Z"}
+{"log":"[\u001b[0;32m  OK  \u001b[0m] Finished \u001b[0;1;39mUpdate UTMP about System Runlevel Changes\u001b[0m.\r\n","stream":"stdout","time":"2022-06-12T14:19:12.552939909Z"}
